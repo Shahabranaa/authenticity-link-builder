@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18" # Specify a Node.js version, common for Vite/React projects
+  NPM_VERSION = "10" # Specify an NPM version if needed
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

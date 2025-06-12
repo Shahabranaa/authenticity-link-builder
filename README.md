@@ -94,6 +94,24 @@ To host this tool on GitHub Pages so it's accessible online:
 
 3. Once deployed, your site will be available at `https://yourusername.github.io/your-repo-name/`
 
+## Hosting on Netlify
+
+This site can be deployed to Netlify. The configuration is stored in the `netlify.toml` file in the root of the repository.
+
+This file specifies:
+- The build command: `npm run build`
+- The publish directory: `dist`
+- Node.js version for the build environment
+- A redirect rule to ensure client-side routing works correctly for this Single Page Application (SPA).
+
+To deploy on Netlify:
+1. Connect your Netlify account to your Git repository.
+2. Netlify will automatically detect the `netlify.toml` file.
+3. Configure any necessary environment variables in the Netlify UI if they are not already in `netlify.toml`.
+4. Trigger a deploy. Netlify will use the settings from `netlify.toml` to build and deploy the site.
+
+If you need to change the build command or publish directory, update the `netlify.toml` file accordingly.
+
 ## Understanding Domain Metrics
 
 - **Domain Authority (DA)**: A score from 1-100 predicting how well a website will rank on search engines. Higher is better.
