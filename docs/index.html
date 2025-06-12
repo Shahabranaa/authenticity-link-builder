@@ -185,7 +185,19 @@
           if (!response.ok) {
             throw new Error(`Failed to load metrics data: ${response.status}`);
           }
-          return response.json();
+          // Check if the response is actually JSON by looking at the content type
+          const contentType = response.headers.get('content-type');
+          if (contentType && !contentType.includes('application/json')) {
+            throw new Error('Server returned non-JSON response');
+          }
+          return response.text().then(text => {
+            try {
+              return JSON.parse(text);
+            } catch (e) {
+              console.error('Failed to parse JSON:', e);
+              throw new Error('Invalid JSON response from server');
+            }
+          });
         })
         .then(data => {
           console.log("Loaded data", data);
