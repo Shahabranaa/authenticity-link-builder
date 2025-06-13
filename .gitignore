@@ -70,3 +70,6 @@ Thumbs.db
 
 # Specific to this project
 sources_with_real_metrics.json
+
+# Local Netlify folder
+.netlify

@@ -171,33 +171,35 @@
       // Load websites from sources_with_metrics.json with cache busting
       const timestamp = new Date().getTime();
       
+      // Function to fetch and validate JSON response
+      async function fetchJSON(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Failed to load ${url}: ${response.status}`);
+        }
+        // Check if the response is actually JSON by looking at the content type
+        const contentType = response.headers.get('content-type');
+        if (contentType && !contentType.includes('application/json')) {
+          throw new Error('Server returned non-JSON response');
+        }
+        const text = await response.text();
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+          throw new Error('Invalid JSON response from server');
+        }
+      }
+      
       // Try to load the real metrics first, and fall back to simulated metrics if not available
-      fetch(`sources_with_real_metrics.json?t=${timestamp}`)
-        .then(response => {
-          if (!response.ok) {
-            console.log("Real metrics file not found, falling back to simulated metrics");
-            return fetch(`sources_with_metrics.json?t=${timestamp}`);
-          }
+      fetchJSON(`sources_with_real_metrics.json?t=${timestamp}`)
+        .then(data => {
           console.log("Using real metrics data");
-          return response;
+          return data;
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Failed to load metrics data: ${response.status}`);
-          }
-          // Check if the response is actually JSON by looking at the content type
-          const contentType = response.headers.get('content-type');
-          if (contentType && !contentType.includes('application/json')) {
-            throw new Error('Server returned non-JSON response');
-          }
-          return response.text().then(text => {
-            try {
-              return JSON.parse(text);
-            } catch (e) {
-              console.error('Failed to parse JSON:', e);
-              throw new Error('Invalid JSON response from server');
-            }
-          });
+        .catch(error => {
+          console.log("Real metrics file not found, falling back to simulated metrics");
+          return fetchJSON(`sources_with_metrics.json?t=${timestamp}`);
         })
         .then(data => {
           console.log("Loaded data", data);

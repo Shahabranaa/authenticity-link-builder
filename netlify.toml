@@ -1,6 +1,12 @@
 [build]
   publish = "dist"
-  command = "npm run build"
+  command = "npm install && npm run build"
+
+[dev]
+  command = "npm run dev"
+  port = 8888        # Netlify Dev listens on this port
+  targetPort = 3000  # Vite runs on this port
+  framework = "#custom"
 
 [[redirects]]
   from = "/*"
@@ -8,4 +14,5 @@
   status = 200
 
 [build.environment]
-  PYTHON_VERSION = "3.11"
+  NODE_VERSION = "16"
+  NPM_FLAGS = "--no-audit --no-fund"
