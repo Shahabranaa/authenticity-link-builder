@@ -18,7 +18,7 @@ mkdir -p docs
 # Copy the necessary files to the docs directory
 echo "Copying files to docs directory..."
 cp index.html docs/
-cp sources_with_real_metrics.json docs/
+cp -f sources_with_real_metrics.json docs/ 2>/dev/null || echo "sources_with_real_metrics.json not found, skipping"
 cp -f count.html docs/ 2>/dev/null || echo "count.html not found, skipping"
 cp -f CNAME docs/ 2>/dev/null || echo "CNAME not found, skipping"
 

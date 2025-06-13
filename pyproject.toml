@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "authenticity-link-builder"
+version = "1.0.0"
+description = "A tool for finding legitimate backlink opportunities with SEO metrics"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Authenticity Link Builder", email = "contact@example.com"}
+]
+keywords = ["seo", "backlinks", "metrics", "domain-authority", "page-authority"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "requests>=2.25.0",
+    "beautifulsoup4>=4.9.0",
+    "click==8.1.7",
+    "rich==13.7.0",
+    "pandas==2.1.4",
+    "aiohttp==3.9.3",
+    "fake-useragent==1.4.0",
+    "tqdm==4.66.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/authenticity-link-builder"
+Repository = "https://github.com/yourusername/authenticity-link-builder"
+Issues = "https://github.com/yourusername/authenticity-link-builder/issues"
+
+[project.scripts]
+backlink-finder = "backlink_finder:main"
+generate-metrics = "generate_metrics:main"
+mock-metrics = "mock_metrics:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+exclude = ["tests*", "docs*", ".git*", "node_modules*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.html", "*.css", "*.js"] 
