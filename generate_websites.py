@@ -122,7 +122,7 @@ def generate_websites(count_per_category: int) -> Dict[str, List[str]]:
     
     # Load existing sources
     try:
-        with open('sources.json', 'r') as f:
+        with open('public/sources.json', 'r') as f:
             existing_sources = json.load(f)
     except Exception:
         existing_sources = {}
@@ -152,7 +152,7 @@ def generate_websites(count_per_category: int) -> Dict[str, List[str]]:
 
 def save_sources(sources: Dict[str, List[str]]):
     """Save sources to JSON file"""
-    with open('sources.json', 'w') as f:
+    with open('public/sources.json', 'w') as f:
         json.dump(sources, f, indent=4)
 
 def main():
